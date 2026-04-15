@@ -96,3 +96,67 @@ function setClock(selector, deadline) {
 }
 
 setClock(".timer", deadline);
+
+// Cards
+
+class MenuItem {
+  constructor(src, alt, title, descr, price, parentSelector) {
+    this.src = src;
+    this.alt = alt;
+    this.title = title;
+    this.parent = document.querySelector(parentSelector);
+    this.descr = descr;
+    this.price = price;
+    this.currency = 45;
+    this.changeToUAH();
+  }
+
+  changeToUAH() {
+    this.price = this.price * this.currency;
+  }
+
+  renderMenuItem() {
+    // const menuItem = document.createElement("div");
+    // menuItem.innerHTML = `
+    // <div class="menu__item">
+    //     <img src=${this.src} alt=${this.alt}>
+    //     <h3 class="menu__item-subtitle">${this.title}</h3>
+    //     <div class="menu__item-descr">
+    //         ${this.descr}
+    //     </div>
+    //     <div class="menu__item-divider"></div>
+    //     <div class="menu__item-price">
+    //         <div class="menu__item-cost">Price:</div>
+    //         <div class="menu__item-total"><span>${this.price}</span> UAH/day</div>
+    //     </div>
+    // </div>
+    //       `;
+    // this.parent.append(menuItem);
+
+    this.parent.innerHTML += `
+    <div class="menu__item">
+        <img src=${this.src} alt=${this.alt}>
+        <h3 class="menu__item-subtitle">${this.title}</h3>
+        <div class="menu__item-descr">
+            ${this.descr}
+        </div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+            <div class="menu__item-cost">Price:</div>
+            <div class="menu__item-total"><span>${this.price}</span> UAH/day</div>
+        </div>
+    </div>
+          `;
+  }
+}
+
+for (let i = 0; i < 3; i++) {
+  new MenuItem(
+    "img/tabs/vegy.jpg",
+    "vegy",
+    "Fitness menu",
+    "Fresh vegetables and fruits for active and healthy people.",
+    20,
+    ".menu .container",
+  ).renderMenuItem();
+}
