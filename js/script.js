@@ -100,13 +100,14 @@ setClock(".timer", deadline);
 // Cards
 
 class MenuItem {
-  constructor(src, alt, title, descr, price, parentSelector) {
+  constructor(src, alt, title, descr, price, parentSelector, ...classes) {
     this.src = src;
     this.alt = alt;
     this.title = title;
-    this.parent = document.querySelector(parentSelector);
     this.descr = descr;
     this.price = price;
+    this.classes = classes;
+    this.parent = document.querySelector(parentSelector);
     this.currency = 45;
     this.changeToUAH();
   }
@@ -116,8 +117,30 @@ class MenuItem {
   }
 
   renderMenuItem() {
-    // const menuItem = document.createElement("div");
-    // menuItem.innerHTML = `
+    const menuItem = document.createElement("div");
+
+    if (this.classes.length === 0) {
+      this.menuItem = "menu__item";
+      menuItem.classList.add(this.menuItem);
+    } else {
+      this.classes.forEach((className) => menuItem.classList.add(className));
+    }
+
+    menuItem.innerHTML = `
+
+        <img src=${this.src} alt=${this.alt}>
+        <h3 class="menu__item-subtitle">${this.title}</h3>
+        <div class="menu__item-descr">
+            ${this.descr}
+        </div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+            <div class="menu__item-cost">Price:</div>
+            <div class="menu__item-total"><span>${this.price}</span> UAH/day</div>
+        </div>`;
+    this.parent.append(menuItem);
+
+    // this.parent.innerHTML += `
     // <div class="menu__item">
     //     <img src=${this.src} alt=${this.alt}>
     //     <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -131,22 +154,6 @@ class MenuItem {
     //     </div>
     // </div>
     //       `;
-    // this.parent.append(menuItem);
-
-    this.parent.innerHTML += `
-    <div class="menu__item">
-        <img src=${this.src} alt=${this.alt}>
-        <h3 class="menu__item-subtitle">${this.title}</h3>
-        <div class="menu__item-descr">
-            ${this.descr}
-        </div>
-        <div class="menu__item-divider"></div>
-        <div class="menu__item-price">
-            <div class="menu__item-cost">Price:</div>
-            <div class="menu__item-total"><span>${this.price}</span> UAH/day</div>
-        </div>
-    </div>
-          `;
   }
 }
 
@@ -158,5 +165,7 @@ for (let i = 0; i < 3; i++) {
     "Fresh vegetables and fruits for active and healthy people.",
     20,
     ".menu .container",
+    // "menu__item",
+    // "big",
   ).renderMenuItem();
 }
