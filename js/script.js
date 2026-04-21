@@ -9,6 +9,7 @@ const tabContent = document.querySelectorAll(".tabcontent"),
 function hideTabs() {
   tabContent.forEach((item, i) => {
     item.style.display = "none";
+    tabContent[i].classList.remove("myOwnAnimation");
   });
   tabItem.forEach((item) => {
     item.classList.remove("tabheader__item_active");
@@ -18,8 +19,9 @@ function hideTabs() {
 hideTabs();
 
 function showTabs(i = 0) {
-  tabContent[i].style.display = "block";
   tabItem[i].classList.add("tabheader__item_active");
+  tabContent[i].classList.add("myOwnAnimation");
+  tabContent[i].style.display = "block";
 }
 
 showTabs();

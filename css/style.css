@@ -606,14 +606,7 @@ a {
   margin: 0 auto;
 }
 
-.show {
-  display: block;
-}
-.hide {
-  display: none;
-}
-
-.fade {
+.myOwnAnimation {
   animation-name: fade;
   animation-duration: 1.5s;
 }
