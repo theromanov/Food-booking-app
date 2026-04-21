@@ -99,6 +99,52 @@ function setClock(selector, deadline) {
 
 setClock(".timer", deadline);
 
+// Modal
+
+const modalWindow = document.querySelector(".modal"),
+  modalTriggerBtn = document.querySelectorAll("[data-modal]"),
+  modalTriggerClose = document.querySelector("[data-close]");
+
+function showModal() {
+  modalWindow.style.display = "block";
+  document.documentElement.style.overflow = "hidden";
+  window.removeEventListener("scroll", showModalScroll);
+}
+
+function closeModal() {
+  modalWindow.style.display = "none";
+  document.documentElement.style.overflow = "";
+}
+
+function showModalScroll() {
+  if (
+    window.pageYOffset + document.documentElement.clientHeight >=
+    document.documentElement.scrollHeight - 5
+  ) {
+    showModal();
+    window.removeEventListener("scroll", showModalScroll);
+    clearTimeout(modalTimeoutId);
+  }
+}
+
+modalTriggerBtn.forEach((item) => {
+  item.addEventListener("click", showModal);
+});
+
+modalTriggerClose.addEventListener("click", closeModal);
+
+modalWindow.addEventListener("click", closeModal);
+
+window.addEventListener("keydown", (e) => {
+  if (e.code == "Escape") {
+    closeModal();
+  }
+});
+
+const modalTimeoutId = setTimeout(showModal, 5000);
+
+window.addEventListener("scroll", showModalScroll);
+
 // Cards
 
 class MenuItem {
