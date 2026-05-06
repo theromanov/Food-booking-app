@@ -241,12 +241,6 @@ function sendData(form) {
     // form.append(statusMessage);
     form.insertAdjacentElement("afterend", statusMessage);
 
-    const request = new XMLHttpRequest();
-
-    request.open("POST", "server.php");
-
-    request.setRequestHeader("Content-type", "application/json");
-
     const formData = new FormData(form);
 
     const obj = {};
@@ -255,23 +249,30 @@ function sendData(form) {
       obj[key] = value;
     });
 
-    const json = JSON.stringify(obj);
-
-    setTimeout(() => {
-      request.send(json);
-    }, 2000);
-
-    request.addEventListener("load", () => {
-      if (request.status == 200) {
-        console.log(request.response);
-        form.reset();
-        showNotificationModal(messages["success"]);
-        statusMessage.remove();
-      } else {
+    fetch("server.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Вібулася помилка:  ${res.status}`);
+        } else {
+          return res.text();
+        }
+      })
+      .then((data) => {
+        ((console.log(data), showNotificationModal(messages["success"])),
+          statusMessage.remove());
+      })
+      .catch((error) => {
+        console.log("Помилка при відправці: ", error);
         showNotificationModal(messages["failure"]);
         statusMessage.remove();
-      }
-    });
+      })
+      .finally(() => form.reset());
   });
 }
 
