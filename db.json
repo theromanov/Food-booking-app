@@ -1,0 +1,81 @@
+{
+  "menu": [
+    {
+      "img": "img/tabs/vegy.jpg",
+      "altimg": "vegy",
+      "title": "Меню 'Фитнес'",
+      "descr": "Меню 'Фитнес' - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!",
+      "price": 9,
+      "id": "bSpJEWAAGsE"
+    },
+    {
+      "img": "img/tabs/post.jpg",
+      "altimg": "post",
+      "title": "Меню 'Постное'",
+      "descr": "Меню 'Постное' - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.",
+      "price": 14,
+      "id": "J8gGoP8eEl4"
+    },
+    {
+      "img": "img/tabs/elite.jpg",
+      "altimg": "elite",
+      "title": "Меню 'Премиум'",
+      "descr": "В меню 'Премиум' мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!",
+      "price": 21,
+      "id": "pLiar99qEjQ"
+    }
+  ],
+  "requests": [
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "V8RpJ52d0Mo"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "arOfP3Oa-yU"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "l5Jxy8rmsds"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "GwE4MC22rjU"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "MyajNEJ8e98"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "4U8WDyg2Ffk"
+    },
+    {
+      "name": "1",
+      "phone": "938238263278",
+      "id": "N0uEnjPdkp8"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "Y4Tt8uBulGo"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "nuu1-ty3e3E"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+4915251734273",
+      "id": "TlifU9hBD_s"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

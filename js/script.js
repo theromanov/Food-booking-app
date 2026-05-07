@@ -206,18 +206,60 @@ class MenuItem {
   }
 }
 
-for (let i = 0; i < 3; i++) {
-  new MenuItem(
-    "img/tabs/vegy.jpg",
-    "vegy",
-    "Fitness menu",
-    "Fresh vegetables and fruits for active and healthy people.",
-    20,
-    ".menu .container",
-    // "menu__item",
-    // "big",
-  ).renderMenuItem();
-}
+const getResource = async (url) => {
+  const data = await fetch(url);
+
+  if (!data.ok) {
+    throw new Error(`Відбулася помилка: ${data.status}`);
+  }
+
+  return await data.json();
+};
+
+// getResource("http://localhost:3000/menu").then((res) => {
+//   res.forEach(({ img, altimg, title, descr, price }) => {
+//     new MenuItem(
+//       img,
+//       altimg,
+//       title,
+//       descr,
+//       price,
+//       ".menu .container",
+//     ).renderMenuItem();
+//   });
+// });
+
+// alternative
+
+// function createCard(data) {
+//   data.forEach(({ img, altimg, title, descr, price }) => {
+//     const menuCard = document.createElement("div");
+//     menuCard.classList.add("menu__item");
+
+//     const newPrice = price * 45;
+
+//     menuCard.innerHTML = `
+//         <div class="menu__item">
+//             <img src="${img}" alt="${altimg}">
+//             <h3 class="menu__item-subtitle">${title}</h3>
+//             <div class="menu__item-descr">
+//                 ${descr}
+//             </div>
+//             <div class="menu__item-divider"></div>
+//             <div class="menu__item-price">
+//                 <div class="menu__item-cost">Price:</div>
+//                 <div class="menu__item-total"><span>${newPrice}</span> UAH/day</div>
+//             </div>
+//         </div>
+//       `;
+
+//     document.querySelector(".menu .container").append(menuCard);
+//   });
+// }
+
+// getResource("http://localhost:3000/menu").then((data) => {
+//   createCard(data);
+// });
 
 // Forms
 
@@ -229,43 +271,40 @@ const messages = {
   failure: "Something went wrong...",
 };
 
-forms.forEach((item) => sendData(item));
+forms.forEach((item) => bindPostData(item));
 
-function sendData(form) {
+const postData = async (url, data) => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: data,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Відбулася помилка: ${response.status}`);
+  } else {
+    return await response.json();
+  }
+};
+
+function bindPostData(form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const statusMessage = document.createElement("img");
     statusMessage.classList.add("loadingicon");
     statusMessage.src = messages["loading"];
-    // form.append(statusMessage);
     form.insertAdjacentElement("afterend", statusMessage);
 
     const formData = new FormData(form);
 
-    const obj = {};
+    const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-    formData.forEach((value, key) => {
-      obj[key] = value;
-    });
-
-    fetch("server.php", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(obj),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Вібулася помилка:  ${res.status}`);
-        } else {
-          return res.text();
-        }
-      })
+    postData("http://localhost:3000/requests", json)
       .then((data) => {
-        ((console.log(data), showNotificationModal(messages["success"])),
-          statusMessage.remove());
+        (showNotificationModal(messages["success"]), statusMessage.remove());
       })
       .catch((error) => {
         console.log("Помилка при відправці: ", error);
