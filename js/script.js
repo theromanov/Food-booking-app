@@ -206,15 +206,32 @@ class MenuItem {
   }
 }
 
-const getResource = async (url) => {
-  const data = await fetch(url);
+// Axios method
 
-  if (!data.ok) {
-    throw new Error(`Відбулася помилка: ${data.status}`);
-  }
+axios.get("http://localhost:3000/menu").then((res) => {
+  res.data.forEach(({ img, altimg, title, descr, price }) => {
+    new MenuItem(
+      img,
+      altimg,
+      title,
+      descr,
+      price,
+      ".menu .container",
+    ).renderMenuItem();
+  });
+});
 
-  return await data.json();
-};
+// async/await
+
+// const getResource = async (url) => {
+//   const data = await fetch(url);
+
+//   if (!data.ok) {
+//     throw new Error(`Відбулася помилка: ${data.status}`);
+//   }
+
+//   return await data.json();
+// };
 
 // getResource("http://localhost:3000/menu").then((res) => {
 //   res.forEach(({ img, altimg, title, descr, price }) => {
