@@ -208,33 +208,8 @@ class MenuItem {
 
 // Axios method
 
-axios.get("http://localhost:3000/menu").then((res) => {
-  res.data.forEach(({ img, altimg, title, descr, price }) => {
-    new MenuItem(
-      img,
-      altimg,
-      title,
-      descr,
-      price,
-      ".menu .container",
-    ).renderMenuItem();
-  });
-});
-
-// async/await
-
-// const getResource = async (url) => {
-//   const data = await fetch(url);
-
-//   if (!data.ok) {
-//     throw new Error(`Відбулася помилка: ${data.status}`);
-//   }
-
-//   return await data.json();
-// };
-
-// getResource("http://localhost:3000/menu").then((res) => {
-//   res.forEach(({ img, altimg, title, descr, price }) => {
+// axios.get("http://localhost:3000/menu").then((res) => {
+//   res.data.forEach(({ img, altimg, title, descr, price }) => {
 //     new MenuItem(
 //       img,
 //       altimg,
@@ -245,6 +220,31 @@ axios.get("http://localhost:3000/menu").then((res) => {
 //     ).renderMenuItem();
 //   });
 // });
+
+// async/await
+
+const getResource = async (url) => {
+  const data = await fetch(url);
+
+  if (!data.ok) {
+    throw new Error(`Відбулася помилка: ${data.status}`);
+  }
+
+  return await data.json();
+};
+
+getResource("http://localhost:3000/menu").then((res) => {
+  res.forEach(({ img, altimg, title, descr, price }) => {
+    new MenuItem(
+      img,
+      altimg,
+      title,
+      descr,
+      price,
+      ".menu .container",
+    ).renderMenuItem();
+  });
+});
 
 // alternative
 
@@ -355,3 +355,49 @@ function showNotificationModal(message) {
     modalDialog.classList.remove("hide");
   }, 3000);
 }
+
+// Slides
+
+const slides = document.querySelectorAll(".offer__slide"),
+  prevBtn = document.querySelector(".offer__slider-prev"),
+  nextBtn = document.querySelector(".offer__slider-next"),
+  current = document.querySelector("#current"),
+  total = document.querySelector("#total");
+
+let sliderIndex = 1;
+
+showSlides(sliderIndex);
+
+if (slides.length < 10) {
+  total.textContent = `0${slides.length}`;
+} else {
+  total.textContent = slides.length;
+}
+
+function showSlides(n) {
+  if (n > slides.length) {
+    sliderIndex = 1;
+  }
+
+  if (n < 1) {
+    sliderIndex = slides.length;
+  }
+
+  slides.forEach((item) => (item.style.display = "none"));
+
+  slides[sliderIndex - 1].style.display = "block";
+
+  if (sliderIndex < 10) {
+    current.textContent = `0${sliderIndex}`;
+  } else {
+    current.textContent = sliderIndex;
+  }
+}
+
+prevBtn.addEventListener("click", () => {
+  showSlides((sliderIndex -= 1));
+});
+
+nextBtn.addEventListener("click", () => {
+  showSlides((sliderIndex += 1));
+});
