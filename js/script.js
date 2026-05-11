@@ -362,11 +362,13 @@ const slides = document.querySelectorAll(".offer__slide"),
   prevBtn = document.querySelector(".offer__slider-prev"),
   nextBtn = document.querySelector(".offer__slider-next"),
   current = document.querySelector("#current"),
-  total = document.querySelector("#total");
+  total = document.querySelector("#total"),
+  slidesWrapper = document.querySelector(".offer__slider-wrapper"),
+  slidesField = document.querySelector(".offer__slider-inner"),
+  width = window.getComputedStyle(slidesWrapper).width;
 
 let sliderIndex = 1;
-
-showSlides(sliderIndex);
+let offset = 0;
 
 if (slides.length < 10) {
   total.textContent = `0${slides.length}`;
@@ -374,30 +376,95 @@ if (slides.length < 10) {
   total.textContent = slides.length;
 }
 
-function showSlides(n) {
-  if (n > slides.length) {
-    sliderIndex = 1;
-  }
-
-  if (n < 1) {
-    sliderIndex = slides.length;
-  }
-
-  slides.forEach((item) => (item.style.display = "none"));
-
-  slides[sliderIndex - 1].style.display = "block";
-
-  if (sliderIndex < 10) {
-    current.textContent = `0${sliderIndex}`;
+function checkSliderIndex(n) {
+  if (n < 10) {
+    current.textContent = `0${n}`;
   } else {
-    current.textContent = sliderIndex;
+    current.textContent = n;
   }
 }
 
-prevBtn.addEventListener("click", () => {
-  showSlides((sliderIndex -= 1));
+function updateSlider() {
+  slidesField.style.transform = `translateX(-${offset}px)`;
+  checkSliderIndex(sliderIndex);
+}
+
+checkSliderIndex(sliderIndex);
+
+slidesWrapper.style.overflow = "hidden";
+
+slidesField.style.display = "flex";
+slidesField.style.width = 100 * slides.length + "%";
+slidesField.style.transition = ".5s all";
+
+slides.forEach((slide) => {
+  slide.style.width = width;
 });
 
 nextBtn.addEventListener("click", () => {
-  showSlides((sliderIndex += 1));
+  if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+    offset = 0;
+  } else {
+    offset += +width.slice(0, width.length - 2);
+  }
+
+  if (sliderIndex == slides.length) {
+    sliderIndex = 1;
+  } else {
+    sliderIndex++;
+  }
+
+  updateSlider();
 });
+
+prevBtn.addEventListener("click", () => {
+  if (offset == 0) {
+    offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+  } else {
+    offset -= +width.slice(0, width.length - 2);
+  }
+
+  if (sliderIndex == 1) {
+    sliderIndex = slides.length;
+  } else {
+    sliderIndex--;
+  }
+
+  updateSlider();
+});
+
+// showSlides(sliderIndex);
+
+// if (slides.length < 10) {
+//   total.textContent = `0${slides.length}`;
+// } else {
+//   total.textContent = slides.length;
+// }
+
+// function showSlides(n) {
+//   if (n > slides.length) {
+//     sliderIndex = 1;
+//   }
+
+//   if (n < 1) {
+//     sliderIndex = slides.length;
+//   }
+
+//   slides.forEach((item) => (item.style.display = "none"));
+
+//   slides[sliderIndex - 1].style.display = "block";
+
+//   if (sliderIndex < 10) {
+//     current.textContent = `0${sliderIndex}`;
+//   } else {
+//     current.textContent = sliderIndex;
+//   }
+// }
+
+// prevBtn.addEventListener("click", () => {
+//   showSlides((sliderIndex -= 1));
+// });
+
+// nextBtn.addEventListener("click", () => {
+//   showSlides((sliderIndex += 1));
+// });
