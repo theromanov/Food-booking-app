@@ -461,11 +461,15 @@ for (let i = 0; i < slides.length; i++) {
   dots.push(dot);
 }
 
+function getNumericValue(str) {
+  return +str.replace(/\D/g, "");
+}
+
 nextBtn.addEventListener("click", () => {
-  if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+  if (offset == getNumericValue(width) * (slides.length - 1)) {
     offset = 0;
   } else {
-    offset += +width.slice(0, width.length - 2);
+    offset += getNumericValue(width);
   }
 
   if (sliderIndex == slides.length) {
@@ -480,9 +484,9 @@ nextBtn.addEventListener("click", () => {
 
 prevBtn.addEventListener("click", () => {
   if (offset == 0) {
-    offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+    offset = getNumericValue(width) * (slides.length - 1);
   } else {
-    offset -= +width.slice(0, width.length - 2);
+    offset -= getNumericValue(width);
   }
 
   if (sliderIndex == 1) {
@@ -501,7 +505,7 @@ dots.forEach((dot) => {
 
     sliderIndex = slideTo;
 
-    offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+    offset = getNumericValue(width) * (slideTo - 1);
 
     updateSlider();
     updateDots();
