@@ -169,8 +169,8 @@
             <div class="calculating__field">
                 <div class="calculating__subtitle">Your gender</div>
                 <div class="calculating__choose" id="gender">
-                    <div class="calculating__choose-item calculating__choose-item_active">Female</div>
-                    <div class="calculating__choose-item">Male</div>
+                    <div class="calculating__choose-item calculating__choose-item_active" id="female">Female</div>
+                    <div class="calculating__choose-item" id="male">Male</div>
                 </div>
 
                 <div class="calculating__subtitle">Your body data</div>
@@ -182,11 +182,12 @@
 
                 <div class="calculating__subtitle">Choose your activity level</div>
                 <div class="calculating__choose calculating__choose_big">
-                    <div id="low" class="calculating__choose-item">Low activity</div>
-                    <div id="small" class="calculating__choose-item calculating__choose-item_active">Light activity
+                    <div data-activity="1.2" id="low" class="calculating__choose-item">Low activity</div>
+                    <div data-activity="1.375" id="small"
+                        class="calculating__choose-item calculating__choose-item_active">Light activity
                     </div>
-                    <div id="medium" class="calculating__choose-item">Moderate activity</div>
-                    <div id="high" class="calculating__choose-item">High activity</div>
+                    <div data-activity="1.55" id="medium" class="calculating__choose-item">Moderate activity</div>
+                    <div data-activity="1.725" id="high" class="calculating__choose-item">High activity</div>
                 </div>
 
                 <div class="calculating__divider"></div>
