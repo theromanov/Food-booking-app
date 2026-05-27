@@ -138,6 +138,16 @@
       "name": "Roman",
       "phone": "+4915251734273",
       "id": "UlnC98kz4so"
+    },
+    {
+      "name": "Roman Syplyvyi",
+      "phone": "+89489548395445",
+      "id": "HscYU8rLoSM"
+    },
+    {
+      "name": "1",
+      "phone": "+4915251734273",
+      "id": "0vSOavV30gU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
